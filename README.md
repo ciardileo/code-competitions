@@ -1,0 +1,1 @@
+[2022 - Now] Repository to save exercises I've made from code competition sites and olympiads.
