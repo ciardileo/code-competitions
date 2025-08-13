@@ -18,7 +18,7 @@ def bfs(matriz, objetivo):
     fila = deque([[0, 0, 0]])  # próximos a serem visitados + quantidade de rodadas até aqui
     movimentos = ((1, 0), (-1, 0), (0, 1), (0, -1))  # cima baixo direita esquerda
     visitados.add((0, 0, 0))  # posição, rodada nessa posição
-    resultado = float('inf')
+    # resultado = float('inf')
     
     while fila:
         # pega a posição atual e calcula o nível com base no número de rodadas
@@ -40,8 +40,9 @@ def bfs(matriz, objetivo):
                     
                     if nivel_pos_novo - 1 <= nivel_pos_atual:  # se é possível pular
                         if (row_novo, col_novo) == objetivo:  # se for o objetivo
-                            resultado = min(resultado, rodadas + 1)
-                        
+                            # resultado = min(resultado, rodadas + 1)
+                            return rodadas + 1
+                            
                         # adicionar para ser checado
                         # print(f"Vou visitar {row_novo}, {col_novo}")
                         fila.append((row_novo, col_novo, rodadas + 1))
@@ -52,7 +53,7 @@ def bfs(matriz, objetivo):
             fila.append((row_atual, col_atual, rodadas + 1))
             visitados.add((row_atual, col_atual, (rodadas + 1) % 10))
 
-    return resultado    
+    return -1    
 
 def main():
     N, M = [int(x) for x in input().split()]  # linhas, colunas

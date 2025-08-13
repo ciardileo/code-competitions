@@ -30,7 +30,7 @@ int main(){
 
     for (int i = 0; i < numTitans; i++){
         int giant = 0;
-
+w
         switch (sequence[i]){
         case 'P':
             giant = sizeP;

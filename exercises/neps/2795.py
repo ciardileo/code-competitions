@@ -1,46 +1,31 @@
+"""
+o potencial de um intervalo de números (de 1 a 9) é a soma de todas as combinações de concatenações
+sobre uma mesma lista de números, ela perguntará o potencial de diferentes intervalos.
+montar um array de prefix sum, calculando previamente o potencial de cada intervalo
+
+lógica do prefix sum:
+para cada digito, faz a combinação dele com todos os outros dígitos antes dele
+"""
+
 def main():
-    # Função para calcular o número concatenado de dois dígitos
-    def concatena(a, b):
-        return int(str(a) + str(b))
+    N, Q = map(int, input().split())  # número de digitos da lista, quantidade de perguntas
+    digitos = list(map(int, input().split()))
+    prefix_array = [0 for _ in range(len(digitos) + 1)]
+    resultados = []
     
-    # Lê os valores de N e Q
-    N, Q = map(int, input().split())
-    
-    # Lê a lista de números
-    numeros = list(map(int, input().split()))
-    
-    # Inicializa a matriz prefix_sum para armazenar as somas das concatenações
-    prefix_sum = [[0] * N for _ in range(N)]
-    
-    # Pré-processa todas as concatenações possíveis e preenche prefix_sum
-    for i in range(N):
-        for j in range(i + 1, N):
-            # Soma a concatenação de todos os pares (i, j) e (j, i)
-            concat_value = concatena(numeros[i], numeros[j]) + concatena(numeros[j], numeros[i])
-            prefix_sum[i][j] = concat_value
-
-    # Acumula as somas para todos os subintervalos
-    for i in range(N):
-        for j in range(i + 1, N):
-            # Acumula a soma dos pares até o intervalo [i, j]
-            prefix_sum[i][j] += prefix_sum[i][j - 1] if j - 1 >= i else 0
-    
-    resultado = []
-    
-    # Processa cada query
+    # criando o prefix sum array
+    for i in range(1, len(digitos) + 1):
+        prefix_array[i] = prefix_array[i - 1]
+        # adiciona o valor das concatenações
+        prefix_array[i] += (digitos[i - 1] * 10) + (digitos[i - 1])
+          
+    # lendo as perguntas 
     for _ in range(Q):
-        L, R = map(int, input().split())
-        L -= 1  # Ajusta para índice zero
-        R -= 1  # Ajusta para índice zero
-        
-        # Se o intervalo tem tamanho 1, o potencial é zero (não há pares)
-        if R == L:
-            resultado.append(0)
-        else:
-            resultado.append(prefix_sum[L][R])
-    
-    # Imprime todos os resultados de uma vez
-    print(*resultado, sep="\n")
+        L, R = map(int, input().split())  # intervalo
+        resultados.append((prefix_array[R] - prefix_array[L - 1]) * (R - L))
 
+    print(*resultados, sep="\n")
+
+    
 if __name__ == "__main__":
     main()
