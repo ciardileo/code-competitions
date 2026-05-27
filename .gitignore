@@ -32,3 +32,4 @@ build/
 *.pyo
 *.pyd
 __pycache__/
+*.exe
