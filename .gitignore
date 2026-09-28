@@ -33,3 +33,4 @@ build/
 *.pyd
 __pycache__/
 *.exe
+*runSettings.json
